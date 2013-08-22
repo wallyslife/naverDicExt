@@ -34,7 +34,6 @@
                             clearTimeout(timeObj);
                             _this.ani(extCssObj);
                         }
-
                         _this.ani(sizeObj);
                     });
 
