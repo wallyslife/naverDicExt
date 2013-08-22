@@ -29,13 +29,12 @@
                 if(!$dic){
                     $dic =  $("<iframe/>", {id: "dic", src:url}).on("mouseenter mouseleave", function(evt){
 
-                        //var sizeObj = reduCssObj;
+                        var sizeObj = reduCssObj;
                         if(evt.type === "mouseenter"){
                             clearTimeout(timeObj);
-                            _this.ani(extCssObj);
-                        } else {
-                            _this.ani(reduCssObj);
+                            sizeObj = extCssObj;
                         }
+                        _this.ani(sizeObj);
                     });
 
                     DicWrapCtrl.appendBody($dic);
