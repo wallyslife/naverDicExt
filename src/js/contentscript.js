@@ -17,10 +17,9 @@
                 if($dic){
                     var _this = this;
                     $dic.load(function(){
-                        $(this).fadeIn("fast", function(){
-                            _this.ani(extCssObj);
-                            _this.setTime();
-                        });
+                        $dicWrap.show();
+                        _this.ani(extCssObj);
+                        _this.setTime();
                     });
                 }
             },
