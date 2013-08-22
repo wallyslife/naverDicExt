@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+    "name": "naver Dic. Chrome extension",
+    "description": "Dictionary",
+    "version": "0.1",
+    "author": "zufa",
+    "browser_action": {
+        "default_title": "naverDic",
+        "default_icon": "img/icon.png",
+        "default_popup": "page/popup.html"
+    },
+
+    "permissions": ["tabs", "http://*/*", "https://*/*"],
+    "background": {
+        "persistent": false,
+        "scripts": ["js/bg.js"]
+    },"content_scripts": [{
+        "matches": ["http://*/*", "https://*/*"],
+        "css": ["css/dic.css"],
+        "js": ["js/jquery.js", "js/contentscript.js"],
+        "all_frames": false
+    }],
+    "commands": {
+        "toggle-feature": {
+            "suggested_key": { "default": "Ctrl+Shift+Y" },
+            "description": "Send a 'toggle-feature' event to the extension"
+        },
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+F",
+                "mac": "MacCtrl+Shift+F"
+            }
+        }
+    }
+}
