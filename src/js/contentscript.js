@@ -1,6 +1,8 @@
 (function(){
 
-    $(window).bind("mouseup dblclick", function(){
+    $(window).bind("mouseup dblclick", function(evt){
+        if(evt.target.tagName === "INPUT") return;
+
         var selectedTxt = window.getSelection().toString();
         if(selectedTxt === "") return;
 
@@ -32,9 +34,8 @@
                         var sizeObj = reduCssObj;
                         if(evt.type === "mouseenter"){
                             clearTimeout(timeObj);
-                            _this.ani(extCssObj);
+                            sizeObj = extCssObj;
                         }
-
                         _this.ani(sizeObj);
                     });
 

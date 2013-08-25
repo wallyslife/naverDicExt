@@ -20,6 +20,9 @@
         "js": ["js/jquery.js", "js/contentscript.js"],
         "all_frames": false
     }],
+    "web_accessible_resources" :[
+        "js/jquery.js"
+    ],
     "commands": {
         "toggle-feature": {
             "suggested_key": { "default": "Ctrl+Shift+Y" },
