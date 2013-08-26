@@ -10,7 +10,12 @@
     });
 
     var DicCont = (function(){
-        var $dic, $dicWrap, extCssObj = {top:"20px", height:"400px"}, reduCssObj = {top:"20px", height:"100px"}, timeObj;
+        var $dic,
+            $dicWrap,
+            timeObj,
+            extCssObj = {top:"20px", height:"400px"},
+            reduCssObj = {top:"20px", height:"100px"};
+
         var frameCtrl = {
             show: function(query){
 
@@ -26,7 +31,8 @@
                 }
             },
             createCont: function(query){
-                var _this = this, url = "http://endic.naver.com/popManager.nhn?m=search&searchOption=&query="+encodeURIComponent(query) ;
+                var _this = this,
+                    url = "http://endic.naver.com/popManager.nhn?m=search&searchOption=&query="+encodeURIComponent(query) ;
 
                 if(!$dic){
                     $dic =  $("<iframe/>", {id: "dic", src:url}).on("mouseenter mouseleave", function(evt){
@@ -71,7 +77,8 @@
 
             var evtHandler = function($positinoWrap){
                 $positinoWrap.on("click", "span", function(evt){
-                    var id = $(evt.target).id, direction = (id === "left") ? {left: "15px"} : {right: "15px"};
+                    var id = $(evt.target).id,
+                        direction = (id === "left") ? {left: "15px"} : {right: "15px"};
                     frameCtrl.ani(extCssObj, direction);
                 });
             };
@@ -80,13 +87,13 @@
                     create($dic);
                 }
             };
-        })();
+        }());
 
         return {
             show: function(query){
                 frameCtrl.show(query);
             }
         };
-    })();
+    }());
 
-})();
+}());
