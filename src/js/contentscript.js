@@ -32,7 +32,7 @@
             },
             createCont: function(query){
                 var _this = this,
-                    url = "http://endic.naver.com/popManager.nhn?m=search&searchOption=&query="+encodeURIComponent(query) ;
+                    url = "http://endic.naver.com/popManager.nhn?m=search&searchOption=&query="+encodeURIComponent(query);
 
                 if(!$dic){
                     $dic =  $("<iframe/>", {id: "dic", src:url}).on("mouseenter mouseleave", function(evt){
