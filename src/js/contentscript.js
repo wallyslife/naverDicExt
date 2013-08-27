@@ -1,64 +1,115 @@
-(function(){
+(function() {
+    "use strict"
 
-    $(window).bind("mouseup dblclick", function(evt){
-        if(evt.target.tagName === "INPUT") return;
+    $(window).bind("mouseup", function() {
+        var keyword = validator.getKeyword();
 
-        var selectedTxt = window.getSelection().toString();
-        if(selectedTxt === "") return;
-
-        DicCont.show(selectedTxt);
+        if(keyword !== "") {
+            dicCont.show(keyword);
+        }
     });
 
-    var DicCont = (function(){
-        var $dic,
-            $dicWrap,
-            timeObj,
+    var config = {
+        URL_DIC: "http://endic.naver.com/popManager.nhn?m=search&searchOption=&query=",
+        TAG_INPUT: "INPUT"
+    };
+
+    var validator = (function() {
+        var checker = {
+            hasSelectedTxt: function(selectedTxt) {
+                return (selectedTxt === "") ? false : true;
+            },
+            hasInput: function(selection) {
+                var i = 0,
+                    nodeArr = selection.baseNode.childNodes,
+                    len = nodeArr.length,
+                    rtnValue = false;
+
+                for(; i<len; i++) {
+                    if(nodeArr[i].tagName === config.TAG_INPUT) {
+                        rtnValue = true;
+                        break;
+                    }
+                }
+                return rtnValue;
+            }
+        };
+
+        var extractor = {
+            getKeyword: function() {
+                var selection = window.getSelection(),
+                    selectedTxt = selection.toString(),
+                    existInput;
+
+                var existTxt = checker.hasSelectedTxt(selectedTxt);
+
+                if(existTxt) {
+                    existInput = checker.hasInput(selection);
+                    if(existInput){
+                        // input창은 단어검색하지 않음
+                        selectedTxt = "";
+                    }
+                }
+
+                return selectedTxt;
+            }
+        };
+
+        return {
+            getKeyword: function() {
+                return extractor.getKeyword();
+            }
+        };
+    }());
+
+    var dicCont = (function() {
+        var $dic, $dicWrap, timeObj,
             extCssObj = {top:"20px", height:"400px"},
             reduCssObj = {top:"20px", height:"100px"};
 
         var frameCtrl = {
-            show: function(query){
+            show: function(query) {
 
                 this.createCont(query);
 
-                if($dic){
+                if($dic) {
                     var _this = this;
-                    $dic.load(function(){
+                    $dic.load(function() {
                         $dicWrap.show();
                         _this.ani(extCssObj);
                         _this.setTime();
                     });
                 }
             },
-            createCont: function(query){
+            createCont: function(query) {
                 var _this = this,
-                    url = "http://endic.naver.com/popManager.nhn?m=search&searchOption=&query="+encodeURIComponent(query);
+                    url = config.URL_DIC +encodeURIComponent(query);
 
-                if(!$dic){
-                    $dic =  $("<iframe/>", {id: "dic", src:url}).on("mouseenter mouseleave", function(evt){
+                if(!$dic) {
+                    $dic =  $("<iframe/>", {id: "dic", src:url}).on("mouseenter mouseleave", function(evt) {
 
                         var sizeObj = reduCssObj;
-                        if(evt.type === "mouseenter"){
+                        if(evt.type === "mouseenter") {
                             clearTimeout(timeObj);
                             sizeObj = extCssObj;
                         }
                         _this.ani(sizeObj);
                     });
 
-                    DicWrapCtrl.appendBody($dic);
+                    dicWrapCtrl.appendBody($dic);
 
                 } else {
                     $dic.attr("src", url);
                 }
             },
-            setTime: function(){
+            setTime: function() {
                 var _this = this;
                 clearTimeout(timeObj);
-                timeObj = setTimeout(function(){
+                timeObj = setTimeout(function() {
                     _this.ani(reduCssObj);
                 }, 4000);
             },
-            ani: function(opt, extObj){
+            ani: function(opt, extObj) {
                 var option = {top: opt.top, height: opt.height, duration: 50},
                     option = (extObj) ? $.extend(option, extObj) : option;
 
@@ -66,7 +117,7 @@
             }
         };
 
-        var DicWrapCtrl = (function(){
+        var dicWrapCtrl = (function(){
             var create = function($dic){
                 $dicWrap = $("<div/>", {id:"dicWrap"}).append($dic);
                 var $positinoWrap = $("<div/>", {id:"ctrller"}).append("<div id='left'>좌</div> | <div id='right'>우</div>");
