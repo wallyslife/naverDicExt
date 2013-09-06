@@ -100,7 +100,7 @@
                         cssObj = redCssObj;
 
                         if(evt.type === "mouseenter") {
-                            animation.clearTimeoutAll();                             ㅅㄷ
+                            animation.clearTimeoutAll();
                             cssObj = extCssObj;
 
                         } else {
@@ -137,11 +137,10 @@
                 $dicWrap.stop().animate(option);
             },
             clearTimeoutAll: function() {
-                //timeObj = {};
                 var arr = Object.keys(timeObj);
-                for(var i in arr) {
-                    clearInterval(timeObj[arr[i]]);
-                }
+                $(arr).each(function(){
+                    clearInterval(timeObj[this]);
+                });
             }
         };
 
