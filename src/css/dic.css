@@ -1,2 +1,2 @@
-#dicWrap {position:fixed; overflow: hidden; top:15px; right: 15px; width: 405px; height: 400px; border: 0px; margin: 0px; z-index: 999999; background-color: white; box-shadow: 0 0 5px 5px rgba(0, 0, 0, .35); display:none}
-#dic {width: 405px; height: 390px; border: 0px; margin: 0px;}
+#dicWrap {position:fixed; overflow: hidden; top:15px; right: 15px; width: 405px; height: 420px; border: 0px; margin: 0px; z-index: 999999; background-color: white; box-shadow: 0 0 5px 5px rgba(0, 0, 0, .35); display:none}
+#dic {width: 405px; height: 410px; top:20px; border: 0px; margin: 0px;}
