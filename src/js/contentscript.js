@@ -18,7 +18,9 @@
     };
 
     var validator = (function() {
-        var checker = {
+        var checker, extractor;
+
+        checker = {
             hasSelectedTxt: function(selectedTxt) {
                 return (selectedTxt === "") ? false : true;
             },
@@ -44,7 +46,7 @@
             }
         };
 
-        var extractor = {
+        extractor = {
             getKeyword: function() {
                 var selection = window.getSelection(),
                     selectedTxt = $.trim(selection.toString()),
@@ -75,9 +77,11 @@
     var dicCont = (function() {
         var $dic, $dicWrap, timeObj = {},
             extCssObj = {width:"405px", height:"420px"},
-            redCssObj = {height:"100px"};
+            redCssObj = {height:"100px"},
+            minimumObj = {width:"10px", height:"10px"};
+        var frameCtrl, animation;
 
-        var frameCtrl = {
+        frameCtrl = {
             show: function(query) {
                 this.createCont(query);
 
@@ -85,8 +89,9 @@
                     $dic.load(function() {
                         $dicWrap.show();
                         animation.ani(extCssObj);
+                        // TODO: queue로 하던지, 다른 방법으로 하는게 더 좋을 듯..
                         animation.setTimeAni({name:"extension", sec: 4000, cssObj: redCssObj});
-                        animation.setTimeAni({name:"hiding", sec: 5000, cssObj: {width:"25px"}});
+                        animation.setTimeAni({name:"hiding", sec: 5000, cssObj: minimumObj});
                     });
                 }
             },
@@ -104,7 +109,7 @@
                             cssObj = extCssObj;
 
                         } else {
-                            animation.setTimeAni({name:"hiding", sec: 2000, cssObj: {width:"25px"}});
+                            animation.setTimeAni({name:"hiding", sec: 2000, cssObj: minimumObj});
                         }
                         animation.ani(cssObj);
                     });
@@ -117,7 +122,7 @@
             }
         };
 
-        var animation = {
+        animation = {
             setTimeAni: function(configObj) {
                 var _this = this,
                     name = configObj.name,
@@ -144,8 +149,11 @@
             }
         };
 
+        // TODO: 사전 위치 이동을 위해서 만들었는데, 아직 미완성.
         var dicWrapCtrl = (function(){
-            var create = function($dic){
+            var create, evtHandler;
+
+            create = function($dic){
                 $dicWrap = $("<div/>", {id:"dicWrap"}).append($dic);
                 var $positinoWrap = $("<div/>", {id:"ctrller"}).append("<div id='left'>좌</div> | <div id='right'>우</div>");
                 //evtHandler($positinoWrap);
@@ -153,7 +161,7 @@
                 $("body").append($dicWrap);
             };
 
-            var evtHandler = function($positinoWrap){
+            evtHandler = function($positinoWrap){
                 $positinoWrap.on("click", "span", function(evt){
                     var id = $(evt.target).id,
                         direction = (id === "left") ? {left: "15px"} : {right: "15px"};
