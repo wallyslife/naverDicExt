@@ -1,11 +1,11 @@
 {
     "manifest_version": 2,
-    "name": "naver Dic. Chrome extension",
-    "description": "Dictionary",
+    "name": "[Beta] Layer Dic. (Naver Dic.)",
+    "description": "alt+클릭, alt+드레그로 단어를 검색할 수 있습니다.",
     "version": "0.1.1",
-    "author": "zufa",
+    "author": "ZUFA",
     "browser_action": {
-        "default_title": "naverDic",
+        "default_title": "dictionary",
         "default_icon": "img/icon.png",
         "default_popup": "page/popup.html"
     },
